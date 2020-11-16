@@ -1,39 +1,46 @@
 import * as React from 'react';
-import { getItemById } from './crud';
+// import { getItemById } from './crud';
 
 const mcc = 'background:black;color:darkorange;';
 
-export interface FormProps {
-    context: any;
+
+const Form = () => {
+    return (
+        <>Form</>
+    );
 }
 
-export interface FormState {
-    item?: any;
-}
+// export interface FormProps {
+//     context: any;
+// }
 
-class Form extends React.Component<FormProps, FormState> {
-    constructor(props: FormProps) {
-        super(props);
-        this.state = {};
-    }
+// export interface FormState {
+//     item?: any;
+// }
 
-    public async componentDidMount() {
-        // console.log('%c Form --> cdm --> this.props', mcc, this.props);
-        // console.log('%c Form --> cdm --> this.state', mcc, this.state);
-        const item12 = await getItemById('Tasks', 12);
-        this.setState({ item: item12 });
-    }
+// class Form extends React.Component<FormProps, FormState> {
+//     constructor(props: FormProps) {
+//         super(props);
+//         this.state = {};
+//     }
 
-    public componentDidUpdate(prevProps: FormProps, prevState: FormState) {
-        console.log('%c Form --> cdu --> this.state', mcc, this.state);
-    }
+//     public async componentDidMount() {
+//         // console.log('%c Form --> cdm --> this.props', mcc, this.props);
+//         // console.log('%c Form --> cdm --> this.state', mcc, this.state);
+//         const item12 = await getItemById('Tasks', 12);
+//         this.setState({ item: item12 });
+//     }
 
-    public render() {
+//     public componentDidUpdate(prevProps: FormProps, prevState: FormState) {
+//         console.log('%c Form --> cdu --> this.state', mcc, this.state);
+//     }
 
-        return (
-            <>Form</>
-        );
-    }
-}
+//     public render() {
+
+// return (
+//     <>Form</>
+// );
+//     }
+// }
 
 export default Form;

@@ -1,8 +1,9 @@
-import { sp } from "@pnp/sp/presets/all";
+import { sp, Web } from "@pnp/sp/presets/all";
 
 const mcc = 'background:lime;color:black;';
 
 export const getItems = ( // should accept webUrl, then build sp.Web, so we can get data from other sites in the tenant
+    siteUrl,
     listName,
     select = ['*'],
     expand = [],
@@ -12,7 +13,8 @@ export const getItems = ( // should accept webUrl, then build sp.Web, so we can 
     getAll = false
 ) => {
     try {
-        const items = sp.web.lists.getByTitle(listName).items
+        const spWeb = Web(siteUrl);
+        const items = spWeb.lists.getByTitle(listName).items
             .select(...select)
             .expand(...expand)
             .filter(filter)
@@ -28,22 +30,22 @@ export const getItems = ( // should accept webUrl, then build sp.Web, so we can 
     }
 };
 
-export const getItemById = (
-    listName,
-    itemId,
-    select = ['*'],
-    expand = [],
-) => {
-    try {
-        const items = sp.web.lists.getByTitle(listName).items
-            .getById(itemId)
-            .select(...select)
-            .expand(...expand)
-            ;
+// export const getItemById = (
+//     listName,
+//     itemId,
+//     select = ['*'],
+//     expand = [],
+// ) => {
+//     try {
+//         const items = sp.web.lists.getByTitle(listName).items
+//             .getById(itemId)
+//             .select(...select)
+//             .expand(...expand)
+//             ;
 
-        return items.get();
-    }
-    catch (err) {
-        return err;
-    }
-};
+//         return items.get();
+//     }
+//     catch (err) {
+//         return err;
+//     }
+// };

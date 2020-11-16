@@ -14,19 +14,16 @@ export default class Practice extends React.Component<IPracticeProps, {}> {
 
 /*
 to try
-  routing with hookrouter
+  1. routing with hookrouter <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   css in js
     emotion?
     without library?
-  x   async
-  x   try/catch
-  x   fetch in children NOT GOOD FOR COMPONENTS THAT SHARE DATA
   lodash
     debounce form inputs
   debugger
 
 
-to do
-  add to githumb
-  issues
- */
+  x   async
+  x   try/catch
+  x   fetch in children NOT GOOD FOR COMPONENTS THAT SHARE DATA
+*/

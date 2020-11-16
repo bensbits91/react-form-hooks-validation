@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useFetch } from './hooks';
-import Form from './Form';
-import List from './List';
+import { useRoutes, A } from 'hookrouter';
+import routes from './router';
+import { siteUrl, baseUrlRel } from './staticVars';
 
-const url = 'https://ntandem.sharepoint.com/sites/tests/depttasktabs'; // programmatically changing this url should cause new fetch
-
-const fetchRequest = { // TODO: use this instead of url
-    siteUrl: 'https://ntandem.sharepoint.com/sites/tests/depttasktabs',
+const fetchRequest = {
+    siteUrl: siteUrl,
     listName: 'Tasks',
     select: ['*', 'Author/Title'],
     expand: ['Author'],
@@ -18,25 +17,20 @@ const fetchRequest = { // TODO: use this instead of url
 
 const mcc = 'background:black;color:lime;';
 
+
+
 const App = () => {
-    console.time('fetching list data')
-    const { status, error, data } = useFetch(url);
-    console.timeEnd();
+
+    const { status, error, data } = useFetch(fetchRequest);
     console.log('%c { status, error, data }', mcc, { status, error, data });
 
-    const elList = status == 'fetching' ? 'Loading...' // need loading component
-        : status == 'error' ? 'Error!' // what to show????
-            : status == 'fetched' ?
-
-                <List items={data} />
-
-                : 'Hmmmmmmmm';
-
+    const routeResult = useRoutes(routes(data));
     return (
-        <>
-            {elList}
-            {/* <Form context={this.props.context} /> */}
-        </>
+        <div className="App">
+            <A href={baseUrlRel}>List</A>
+            <A href={baseUrlRel + '/form'}>Form</A>
+            {routeResult || 'need a 404 page'}
+        </div>
     );
 };
 

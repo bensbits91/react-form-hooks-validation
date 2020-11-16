@@ -3,7 +3,7 @@ import { getItems } from './crud';
 
 const mcc = 'background:aqua;color:navy;';
 
-export const useFetch = (url) => {
+export const useFetch = (fetchRequest) => {
     const cache = useRef({}); // I don't fully understand how this works, only fectches if data isn't cached
 
     const initialState = {
@@ -27,27 +27,42 @@ export const useFetch = (url) => {
 
     useEffect(() => {
         let cancelRequest = false;
-        if (!url) return;
+        if (!fetchRequest) return;
+
+        const { siteUrl, listName, select, expand, filter, orderBy, orderAsc, getAll } = fetchRequest;
+
+        const url = siteUrl + listName;
 
         const fetchData = async () => {
             dispatch({ type: 'FETCHING' });
             if (cache.current[url]) { // probably need to be able to override this to force refetch, e.g. after save data
-                const data = cache.current[url]; // url not in use yet, hardcoded below
+                const data = cache.current[url];
                 dispatch({ type: 'FETCHED', payload: data });
             } else {
                 try {
+                    console.time('fetch');
                     const response = await getItems(
-                        'Tasks', // hardcoded <<<-------------
-                        ['*', 'Author/Title'],
-                        ['Author']
+                        siteUrl,
+                        listName,
+                        select,
+                        expand,
+                        // filter,
+                        // orderBy,
+                        // orderAsc,
+                        // getAll
                     );
                     console.log('%c response', mcc, response);
                     cache.current[url] = response;
-                    if (cancelRequest) return;
+                    if (cancelRequest) {
+                        console.timeEnd('fetch');
+                        return;
+                    }
                     dispatch({ type: 'FETCHED', payload: response });
+                    console.timeEnd('fetch');
                 } catch (error) {
                     if (cancelRequest) return;
                     dispatch({ type: 'FETCH_ERROR', payload: error.message });
+                    console.timeEnd('fetch');
                 }
             }
         };
@@ -57,7 +72,7 @@ export const useFetch = (url) => {
         return function cleanup() {
             cancelRequest = true; // I don't fully understand how this works
         };
-    }, [url]);
+    }, [fetchRequest]);
 
     console.log('%c state', mcc, state);
     return state;
