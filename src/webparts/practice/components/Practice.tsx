@@ -14,7 +14,6 @@ export default class Practice extends React.Component<IPracticeProps, {}> {
 
 /*
 to try
-  1. routing with hookrouter <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   css in js
     emotion?
     without library?
@@ -23,6 +22,7 @@ to try
   debugger
 
 
+  x   hookrouter
   x   async
   x   try/catch
   x   fetch in children NOT GOOD FOR COMPONENTS THAT SHARE DATA
