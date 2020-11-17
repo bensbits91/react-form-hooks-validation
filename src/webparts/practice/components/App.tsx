@@ -7,8 +7,8 @@ import { siteUrl, baseUrlRel } from './staticVars';
 const fetchItemsRequest = {
     siteUrl: siteUrl,
     listName: 'Tasks',
-    select: ['*', 'Author/Title'],
-    expand: ['Author'],
+    select: ['*', 'Author/Title', 'AssignedTo/Title'],
+    expand: ['Author', 'AssignedTo'],
     filter: '',
     orderBy: '',
     orderAsc: true,
@@ -39,15 +39,22 @@ const App = () => {
     const { status, error, data } = useFetch(fetchItemsRequest);
     console.log('%c { status, error, data }', mcc, { status, error, data });
 
-    const { status: fieldsFetchStatus, error: fieldsFetchError, data: fieldsFetchData } = useFetch(fetchFieldsRequest);
-    console.log('%c { fieldsFetchStatus, fieldsFetchError, fieldsFetchData }', mcc, { fieldsFetchStatus, fieldsFetchError, fieldsFetchData });
+    const { status: fieldsStatus, error: fieldsError, data: fieldsData } = useFetch(fetchFieldsRequest);
+    console.log('%c { fieldsStatus, fieldsError, fieldsData }', mcc, { fieldsStatus, fieldsError, fieldsData });
 
-    const routeResult = useRoutes(routes(data, fieldsFetchData));
+    const routeResult = useRoutes(routes(data, fieldsData));
+
+    const el =
+        status == 'fetching' || fieldsStatus == 'fetching' ? 'need a loading component...'
+            : status == 'error' || fieldsStatus == 'error' ? 'need an error thingy'
+                : status == 'fetched' && fieldsStatus == 'fetched' ? (routeResult || 'need a 404 page')
+                    : 'Oops, think we\'re lost :|';
+
     return (
         <div className="App">
             <A href={baseUrlRel}>List</A>
             <A href={baseUrlRel + '/form/12'}>Form</A>
-            {routeResult || 'need a 404 page'}
+            {el}
         </div>
     );
 };

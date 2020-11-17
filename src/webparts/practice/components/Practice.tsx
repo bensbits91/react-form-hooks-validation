@@ -14,14 +14,12 @@ export default class Practice extends React.Component<IPracticeProps, {}> {
 
 /*
 to try
-  css in js
-    emotion?
-    without library?
-  lodash
-    debounce form inputs
   debugger
-
-
+  error boundaries?
+  scss modules better
+    
+    
+  x   lodash - debounce form inputs
   x   hookrouter
   x   async
   x   try/catch

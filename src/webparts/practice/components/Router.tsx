@@ -10,9 +10,9 @@ const routes = (items, fields) => {
     return ({
         [baseUrlRel]: () => <List items={items} />,
         [baseUrlRel + '/form/:itemId']: ({ itemId }) => <Form
-            item={items.find(d => d.Id == itemId)} 
+            item={items.find(d => d.Id == itemId)}
             fields={fields}
-            />, // should this filtering happen here?
+        />, // should this filtering happen here?
     });
 
 };

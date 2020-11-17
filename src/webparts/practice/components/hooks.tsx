@@ -28,10 +28,12 @@ export const useFetch = (fetchRequest) => {
     useEffect(() => {
         let cancelRequest = false;
         if (!fetchRequest) return;
+        console.log('%c fetchRequest', mcc, fetchRequest);
 
         const { siteUrl, listName, select, expand, filter, orderBy, orderAsc, getAll, requestedEntityType = 'items' } = fetchRequest;
 
-        const url = siteUrl + listName + '/' + requestedEntityType;
+        const url = siteUrl + '/' + listName + '/' + requestedEntityType;
+        console.log('%c url', mcc, url);
 
         const fetchData = async () => {
             dispatch({ type: 'FETCHING' });
