@@ -2,19 +2,20 @@ import * as React from 'react';
 import { Dropdown, IDropdownOption/* , IDropdownStyles */ } from 'office-ui-fabric-react/lib/Dropdown';
 import { unset } from '@microsoft/sp-lodash-subset';
 
+const mcc = 'background:navy;color:aqua;';
 export interface FieldDropDownProps {
     field: any;
-    optionsToHide: any;
+    // optionsToHide: any;
     value: string;
     handler: any;
-    label?: boolean;
-    labelOverride?: string;
+    // label?: boolean;
+    // labelOverride?: string;
     fieldMinWidth?: string;
     disabled?: boolean;
     required?: boolean;
 }
 
-export interface FieldDropDownState {}
+export interface FieldDropDownState { }
 
 class FieldDropDown extends React.Component<FieldDropDownProps, FieldDropDownState> {
     constructor(props: FieldDropDownProps) {
@@ -22,32 +23,32 @@ class FieldDropDown extends React.Component<FieldDropDownProps, FieldDropDownSta
         this.state = {};
     }
 
-    // public componentDidMount() {
-    //     console.log('%c : FieldDropDown -> componentDidMount -> this.props', mcc, this.props);
-    // }
+    public componentDidMount() {
+        console.log('%c : FieldDropDown -> componentDidMount -> this.props', mcc, this.props);
+    }
 
     public render() {
-        const { field, optionsToHide, value, labelOverride, fieldMinWidth, disabled, required } = this.props;
+        const { field, /* optionsToHide,  */value, /* labelOverride,  */fieldMinWidth, disabled, required } = this.props;
 
-        const labelText = labelOverride || field.Title;
+        // const labelText = labelOverride || field.Title;
 
-        const label = this.props.label === true || this.props.label === undefined || this.props.label === null
-        ? required
-        ? labelText + '  *'
-        : labelText
-        : false;
+        // const label = this.props.label === true || this.props.label === undefined || this.props.label === null
+        // ? required
+        // ? labelText + '  *'
+        // : labelText
+        // : false;
 
-        let realOptions = [];
+        // let realOptions = [];
 
-        field.Choices.forEach(c => {
-            if (optionsToHide.includes(c)) {
-                return;
-            }
-            realOptions.push({
-                key: c.replace(/ /g, ''),
-                text: c
-            });
-        });
+        // field.Choices.forEach(c => {
+        //     if (optionsToHide.includes(c)) {
+        //         return;
+        //     }
+        //     realOptions.push({
+        //         key: c.replace(/ /g, ''),
+        //         text: c
+        //     });
+        // });
 
         const options: IDropdownOption[] = field.Choices ?
             [
@@ -55,7 +56,7 @@ class FieldDropDown extends React.Component<FieldDropDownProps, FieldDropDownSta
                     key: 'noselection',
                     text: 'Please make a selection',
                 },
-                ...realOptions
+                ...field.Choices.map(c => ({ key: c.replace(/ /g, ''), text: c }))
             ] : [
                 {
                     key: 'noselection',
@@ -71,7 +72,7 @@ class FieldDropDown extends React.Component<FieldDropDownProps, FieldDropDownSta
             <Dropdown
                 id={field.InternalName}
                 placeholder='Please make a selection'
-                label={label}
+                // label={label}
                 options={options}
                 defaultSelectedKey={selectedKey}
                 disabled={disabled}
@@ -101,7 +102,6 @@ class FieldDropDown extends React.Component<FieldDropDownProps, FieldDropDownSta
                             display: 'inline-block',
                             minWidth: minWidth,
                             verticalAlign: 'middle',
-                            // width: 1000 //    MAKE THIS BASED ON FIELD.INTERNALNAME <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                         },
 
                     }}

@@ -34,7 +34,8 @@ const mcc = 'background:black;color:lime;';
 
 
 
-const App = () => {
+const App = (context) => {
+    console.log('%c context', mcc, context);
 
     const { status, error, data } = useFetch(fetchItemsRequest);
     console.log('%c { status, error, data }', mcc, { status, error, data });
@@ -42,7 +43,7 @@ const App = () => {
     const { status: fieldsStatus, error: fieldsError, data: fieldsData } = useFetch(fetchFieldsRequest);
     console.log('%c { fieldsStatus, fieldsError, fieldsData }', mcc, { fieldsStatus, fieldsError, fieldsData });
 
-    const routeResult = useRoutes(routes(data, fieldsData));
+    const routeResult = useRoutes(routes(data, fieldsData, context));
 
     const el =
         status == 'fetching' || fieldsStatus == 'fetching' ? 'need a loading component...'

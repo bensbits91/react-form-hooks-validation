@@ -9,7 +9,7 @@ export interface FieldDatePickerProps {
     value: string;
     // labelOverride?: string;
     handler: any;
-    disabled: boolean;
+    disabled?: boolean;
     required?: boolean;
 }
 
@@ -49,7 +49,7 @@ class FieldDatePicker extends React.Component<FieldDatePickerProps, FieldDatePic
                 highlightCurrentMonth
                 highlightSelectedMonth
                 onSelectDate={d => { this._onChange(field, d); }}
-                disabled={disabled}
+                disabled={disabled || false}
                 // showCloseButton
                 // showMonthPickerAsOverlay
                 // onRenderLabel={this._onRenderLabel}

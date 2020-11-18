@@ -16,7 +16,8 @@ const handlerFields = (field, value) => {
 
 }
 
-const Form = ({ item, fields }) => {
+const Form = ({ item, fields, context }) => {
+    console.log('%c context', mcc, context);
     console.log('%c item', mcc, item);
     console.log('%c fields', mcc, fields);
 
@@ -30,10 +31,11 @@ const Form = ({ item, fields }) => {
             <FormField
                 label={fts.Title || fieldDef.Title}
                 val={item[fts.InternalName]}
-                type={fieldDef.TypeAsString}
+                // type={fieldDef.TypeAsString}
                 field={fieldDef}
                 horizontal={true}
                 handler={handlerFields}
+                context={context}
             />
         );
 
