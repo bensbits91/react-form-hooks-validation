@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { DetailsList, DetailsListLayoutMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
+import { navigate } from 'hookrouter';
+import { baseUrlRel } from './staticVars';
+
 
 const mcc = 'background:black;color:yellow;';
 
@@ -7,6 +10,10 @@ const _columns: IColumn[] = [
     { key: 'idColumn', name: 'ID', fieldName: 'Id', minWidth: 50, maxWidth: 50, isResizable: true },
     { key: 'titleColumn', name: 'Title', fieldName: 'Title', minWidth: 250, maxWidth: 300, isResizable: true },
 ];
+
+const _onClickItemLink = (itemId) => {
+    navigate(baseUrlRel + '/form/' + itemId);
+};
 
 const List = ({ items }) => {
     console.log('%c items', mcc, items);
@@ -30,7 +37,7 @@ const List = ({ items }) => {
             columns={_columns}
             selectionMode={0}
             // onRenderItemColumn={this._onRenderItemColumn.bind(this)}
-            // onItemInvoked={(item) => this._onClickItemLink('view', item.id)}
+            onItemInvoked={(item) => _onClickItemLink(/* 'view',  */item.Id)}
             layoutMode={DetailsListLayoutMode.justified}
         />
     );

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useReducer } from 'react';
-import { getItems } from './crud';
+import { getItems, getFields } from './crud';
 
 const mcc = 'background:aqua;color:navy;';
 
@@ -28,10 +28,12 @@ export const useFetch = (fetchRequest) => {
     useEffect(() => {
         let cancelRequest = false;
         if (!fetchRequest) return;
+        console.log('%c fetchRequest', mcc, fetchRequest);
 
-        const { siteUrl, listName, select, expand, filter, orderBy, orderAsc, getAll } = fetchRequest;
+        const { siteUrl, listName, select, expand, filter, orderBy, orderAsc, getAll, requestedEntityType = 'items' } = fetchRequest;
 
-        const url = siteUrl + listName;
+        const url = siteUrl + '/' + listName + '/' + requestedEntityType;
+        console.log('%c url', mcc, url);
 
         const fetchData = async () => {
             dispatch({ type: 'FETCHING' });
@@ -40,8 +42,7 @@ export const useFetch = (fetchRequest) => {
                 dispatch({ type: 'FETCHED', payload: data });
             } else {
                 try {
-                    console.time('fetch');
-                    const response = await getItems(
+                    const response = requestedEntityType == 'items' ? await getItems(
                         siteUrl,
                         listName,
                         select,
@@ -50,19 +51,23 @@ export const useFetch = (fetchRequest) => {
                         // orderBy,
                         // orderAsc,
                         // getAll
-                    );
+                    )
+                        : await getFields(
+                            siteUrl,
+                            listName,
+                            select,
+                            expand,
+                            filter,
+                        );
                     console.log('%c response', mcc, response);
                     cache.current[url] = response;
                     if (cancelRequest) {
-                        console.timeEnd('fetch');
                         return;
                     }
                     dispatch({ type: 'FETCHED', payload: response });
-                    console.timeEnd('fetch');
                 } catch (error) {
                     if (cancelRequest) return;
                     dispatch({ type: 'FETCH_ERROR', payload: error.message });
-                    console.timeEnd('fetch');
                 }
             }
         };

@@ -1,46 +1,51 @@
 import * as React from 'react';
-// import { getItemById } from './crud';
+import FormField from './FormField';
 
-const mcc = 'background:black;color:darkorange;';
+const mcc = 'background:black;color:orange;';
 
+const fieldsToShow: any = [ // replace with React Hook Form
+    { InternalName: 'Title' }, // can add DisplayName/Title, required, disabled... choices?
+    { InternalName: 'Status', Title: 'Status' },
+    { InternalName: 'DueDate' },
+    { InternalName: 'AssignedTo' },
+];
 
-const Form = () => {
+const handlerFields = (field, value) => {
+    console.log('%c field', mcc, field);
+    console.log('%c value', mcc, value);
+
+};
+
+const Form = ({ item, fields, context }) => {
+    console.log('%c context', mcc, context);
+    console.log('%c item', mcc, item);
+    console.log('%c fields', mcc, fields);
+
+    const elFormFields = fieldsToShow.map(fts => {
+        console.log('%c fts', mcc, fts);
+
+        const fieldDef = fields.find((f: any) => f.InternalName == fts.InternalName);
+        console.log('%c fieldDef', mcc, fieldDef);
+
+        return (
+            <FormField
+                label={fts.Title || fieldDef.Title}
+                val={item[fts.InternalName]}
+                // type={fieldDef.TypeAsString}
+                field={fieldDef}
+                horizontal={true}
+                handler={handlerFields}
+                context={context}
+            />
+        );
+
+    });
+    console.log('%c elFormFields', mcc, elFormFields);
+
     return (
-        <>Form</>
+        <>{elFormFields}</>
     );
-}
+};
 
-// export interface FormProps {
-//     context: any;
-// }
-
-// export interface FormState {
-//     item?: any;
-// }
-
-// class Form extends React.Component<FormProps, FormState> {
-//     constructor(props: FormProps) {
-//         super(props);
-//         this.state = {};
-//     }
-
-//     public async componentDidMount() {
-//         // console.log('%c Form --> cdm --> this.props', mcc, this.props);
-//         // console.log('%c Form --> cdm --> this.state', mcc, this.state);
-//         const item12 = await getItemById('Tasks', 12);
-//         this.setState({ item: item12 });
-//     }
-
-//     public componentDidUpdate(prevProps: FormProps, prevState: FormState) {
-//         console.log('%c Form --> cdu --> this.state', mcc, this.state);
-//     }
-
-//     public render() {
-
-// return (
-//     <>Form</>
-// );
-//     }
-// }
 
 export default Form;

@@ -7,22 +7,32 @@ import App from './App';
 export default class Practice extends React.Component<IPracticeProps, {}> {
   public render(): React.ReactElement<IPracticeProps> {
     return (
-      <App />
+      <App
+        context={this.props.context} // WHY NO CONTEXT?????????????????
+      />
     );
   }
 }
 
 /*
 to try
-  1. routing with hookrouter <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  css in js
-    emotion?
-    without library?
-  lodash
-    debounce form inputs
+
+  react hook forms
+    componentRef
+      use choicegroup instead of dropdown
+
+  react-input-enhancements
+
+
   debugger
+  error boundaries?
+  scss modules better
+  convert classes to functional components
+    fields
 
 
+  x   lodash - debounce form inputs
+  x   hookrouter
   x   async
   x   try/catch
   x   fetch in children NOT GOOD FOR COMPONENTS THAT SHARE DATA

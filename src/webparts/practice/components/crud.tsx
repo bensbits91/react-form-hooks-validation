@@ -1,8 +1,8 @@
-import { sp, Web } from "@pnp/sp/presets/all";
+import { /* sp,  */Web } from "@pnp/sp/presets/all";
 
 const mcc = 'background:lime;color:black;';
 
-export const getItems = ( // should accept webUrl, then build sp.Web, so we can get data from other sites in the tenant
+export const getItems = (
     siteUrl,
     listName,
     select = ['*'],
@@ -24,6 +24,37 @@ export const getItems = ( // should accept webUrl, then build sp.Web, so we can 
         if (getAll) return items.getAll();
 
         return items.get();
+    }
+    catch (err) {
+        return err;
+    }
+};
+
+export const getFields = (
+    siteUrl,
+    listName,
+    select = ['TypeAsString', 'InternalName', 'Title', 'Required', 'Choices', 'Description', 'SchemaXml'],
+    expand = [],
+    filter = "Hidden eq false and ReadOnlyField eq false and InternalName ne 'ContentType'",
+    // orderBy = 'Created',
+    // orderAsc = false,
+    // getAll = false
+) => {
+    try {
+        const spWeb = Web(siteUrl);
+        const fields = spWeb.lists.getByTitle(listName).fields
+            .select(...select)
+            .filter(filter)
+            .expand(...expand)
+            // .orderBy(orderBy, orderAsc)
+            ;
+
+        // if (getAll) return fields.getAll();
+
+        const asdfasdf = fields.get();
+        console.log('%c asdfasdf', mcc, asdfasdf);
+
+        return asdfasdf;
     }
     catch (err) {
         return err;
