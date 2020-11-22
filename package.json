@@ -27,7 +27,8 @@
     "hookrouter": "^1.2.3",
     "office-ui-fabric-react": "6.189.2",
     "react": "16.8.5",
-    "react-dom": "16.8.5"
+    "react-dom": "16.8.5",
+    "react-error-boundary": "^3.0.2"
   },
   "resolutions": {
     "@types/react": "16.8.8"

@@ -3,6 +3,8 @@ import { useFetch } from './hooks';
 import { useRoutes, A } from 'hookrouter';
 import routes from './router';
 import { siteUrl, baseUrlRel } from './staticVars';
+import { ErrorBoundary } from 'react-error-boundary';
+
 
 const fetchItemsRequest = {
     siteUrl: siteUrl,
@@ -34,6 +36,19 @@ const mcc = 'background:black;color:lime;';
 
 
 
+
+
+function ErrorFallback({ error, resetErrorBoundary }) {
+    return (
+        <div role="alert">
+            <p>Something went wrong:</p>
+            <pre style={{ color: 'red' }}>{error.message}</pre>
+            <button onClick={resetErrorBoundary}>Try again</button>
+        </div>
+    );
+}
+
+
 const App = (context) => {
     console.log('%c context', mcc, context);
 
@@ -53,9 +68,11 @@ const App = (context) => {
 
     return (
         <div className="App">
-            <A href={baseUrlRel}>List</A>
-            <A href={baseUrlRel + '/form/12'}>Form</A>
-            {el}
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <A href={baseUrlRel}>List</A>
+                <A href={baseUrlRel + '/form/12'}>Form</A>
+                {el}
+            </ErrorBoundary>
         </div>
     );
 };

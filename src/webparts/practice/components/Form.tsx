@@ -3,7 +3,7 @@ import FormField from './FormField';
 
 const mcc = 'background:black;color:orange;';
 
-const fieldsToShow: any = [
+const fieldsToShow: any = [ // replace with React Hook Form
     { InternalName: 'Title' }, // can add DisplayName/Title, required, disabled... choices?
     { InternalName: 'Status', Title: 'Status' },
     { InternalName: 'DueDate' },
@@ -14,7 +14,7 @@ const handlerFields = (field, value) => {
     console.log('%c field', mcc, field);
     console.log('%c value', mcc, value);
 
-}
+};
 
 const Form = ({ item, fields, context }) => {
     console.log('%c context', mcc, context);
