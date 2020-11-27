@@ -7,54 +7,57 @@ import { debounce } from '@microsoft/sp-lodash-subset';
 
 const mcc = 'background:magenta;color:yellow;';
 
-const FormFieldEdit = ({ val, /* type,  */field, handlerMain, context }) => {
-    console.log('%c context', mcc, context);
+const FormFieldEdit = ({
+    val,
+    field,
+    context
+}) => {
 
-    const handlerTextField = debounce((f, v) => {
-        handlerMain(f, v);
-    }, 500);
+    // const handlerTextField = debounce((f, v) => {
+    //     handlerMain(f, v);
+    // }, 500);
 
 
     switch (field.TypeAsString) {
-        case 'Choice':
-            // const options = field.options;
-            // let optionsToHide = [];
-            // for (const option in options) {
-            //     if (options[option].visibility == 'hidden') {
-            //         optionsToHide.push(option);
-            //     }
-            // }
-            // if (fieldDefinition.isRadioButtons) {
-            //     return (
-            //         <div /* className={styles.fieldWrap} */>
-            //                 <FieldRadioButtons
-            //                     field={fieldDefinition}
-            //                     optionsToHide={optionsToHide}
-            //                     value={val}
-            //                     labelOverride={labelOverride}
-            //                     handler={handler}
-            //                     disabled={fieldDefinition.InternalName == 'Rehireable'}
-            //                     required={isFieldRequired || fieldDefinition.Required}
-            //                 />
-            //                 /* {helpText} */
-            //         </div>
-            //     );
-            // }
-            return (
-                <div /* className={styles.fieldWrap} */>
-                        <FieldDropdown
-                            field={field}
-                            // optionsToHide={options}
-                            value={val}
-                            // labelOverride={labelOverride}
-                            // fieldMinWidth='200px'
-                            handler={handlerMain}
-                            // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
-                            // required={isFieldRequired || fieldDefinition.Required}
-                        />
-                        {/* {helpText} */}
-                </div>
-            );
+        // case 'Choice':
+        // const options = field.options;
+        // let optionsToHide = [];
+        // for (const option in options) {
+        //     if (options[option].visibility == 'hidden') {
+        //         optionsToHide.push(option);
+        //     }
+        // }
+        // if (fieldDefinition.isRadioButtons) {
+        //     return (
+        //         <div /* className={styles.fieldWrap} */>
+        //                 <FieldRadioButtons
+        //                     field={fieldDefinition}
+        //                     optionsToHide={optionsToHide}
+        //                     value={val}
+        //                     labelOverride={labelOverride}
+        //                     handler={handler}
+        //                     disabled={fieldDefinition.InternalName == 'Rehireable'}
+        //                     required={isFieldRequired || fieldDefinition.Required}
+        //                 />
+        //                 /* {helpText} */
+        //         </div>
+        //     );
+        // }
+        // return (
+        //     <div /* className={styles.fieldWrap} */>
+        //             <FieldDropdown
+        //                 field={field}
+        //                 // optionsToHide={options}
+        //                 value={val}
+        //                 // labelOverride={labelOverride}
+        //                 // fieldMinWidth='200px'
+        //                 handler={handlerMain}
+        //                 // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
+        //                 // required={isFieldRequired || fieldDefinition.Required}
+        //             />
+        //             {/* {helpText} */}
+        //     </div>
+        // );
         case 'Text':
         case 'Currency':
         case 'Number':
@@ -64,30 +67,25 @@ const FormFieldEdit = ({ val, /* type,  */field, handlerMain, context }) => {
                     <FieldText
                         field={field}
                         value={val}
-                        handler={(f, v) => handlerTextField(f, v)}
-                        multiline={field.TypeAsString == 'Note'}
-                        cols={200}
-                        rows={10}
-                        readOnly={false}
-                        required={/* isFieldRequired ||  */field.Required}
+                        readOnly={false} // pass mode param instead
                     />
                     {/* {helpText} */}
                 </div>
             );
-        case 'DateTime':
-            return (
-                <div /* className={styles.fieldWrap} */>
-                    <FieldDatePicker
-                        field={field}
-                        value={val}
-                        // labelOverride={labelOverride}
-                        handler={handlerMain}
-                        // disabled={field.InternalName == 'ReviewDate' || field.InternalName == 'EffectiveDateofChange'}
-                        required={/* isFieldRequired ||  */field.Required}
-                    />
-                    {/* {helpText} */}
-                </div>
-            );
+        // case 'DateTime':
+        //     return (
+        //         <div /* className={styles.fieldWrap} */>
+        //             <FieldDatePicker
+        //                 field={field}
+        //                 value={val}
+        //                 // labelOverride={labelOverride}
+        //                 handler={handlerMain}
+        //                 // disabled={field.InternalName == 'ReviewDate' || field.InternalName == 'EffectiveDateofChange'}
+        //                 required={/* isFieldRequired ||  */field.Required}
+        //             />
+        //             {/* {helpText} */}
+        //         </div>
+        //     );
         // case 'User': // CAN'T GET THIS.CONTEXT?????????????????????????????????????????????????????????????????
         //     return (
         //         <div /* className={styles.fieldWrap} */>

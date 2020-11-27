@@ -1,101 +1,68 @@
 import * as React from 'react';
+import { Controller, useFormContext } from "react-hook-form";
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 const mcc = 'background-color:navy;color:white;';
 
 
-export interface FieldTextProps {
-    field: any;
-    value?: any;
-    handler: any;
-    multiline?: boolean;
-    rows?: number;
-    cols?: number;
-    placeholder?: string;
-    label?: boolean;
-    labelOverride?: string;
-    readOnly?: boolean;
-    required?: boolean;
-}
 
-export interface FieldTextState {
+const FieldText = ({
+    field,
+    value,
+    placeholder = 'Please enter text',
+    readOnly = false,
+}) => {
+    const methods = useFormContext();
+    const { control } = methods;
 
-}
-
-class FieldText extends React.Component<FieldTextProps, FieldTextState> {
-    constructor(props: FieldTextProps) {
-        super(props);
-        this.state = {};
-    }
-
-    // public componentDidMount() {
-    //     console.log('%c : FieldText -> componentDidMount -> this.props', mcc, this.props);
-    // }
-
-    public _onChange(f, o) {
-        this.props.handler(f.InternalName, o);
-    }
-
-    // private _onRenderLabel = (props/* : ITextFieldProps */)/* : JSX.Element */ => {
-    //     return (
-    //         <span style={{ color: colors.gray.c }}>{props.label}</span>
-    //     );
-    // }
-
-    public render() {
-        const { field, placeholder, label, labelOverride, readOnly, required, value, multiline, rows, cols } = this.props;
-        const placeholder_toShow = placeholder !== null ? placeholder : 'Please enter text here';
-
-        const theLabel = !!label
-            ? labelOverride
-                ? labelOverride
-                : field.Title
-            : false;
-            
-        return (
-            <TextField
-                id={field.InternalName}
-                label={theLabel}
-                placeholder={placeholder_toShow}
-                defaultValue={value}
-                readOnly={readOnly}
-                required={required}
-                multiline={multiline ? multiline : false}
-                rows={/* multiline &&  */rows ? rows : 1}
-                cols={/* multiline &&  */cols ? cols : 50}
-                styles={readOnly ? {
-                    subComponentStyles: {
-                        label: {
-                            root: {
-                                display: 'inline-block',
-                                verticalAlign: 'top'
-                            }
-                        }
-                    },
-                    fieldGroup: {
-                        border: 'none',
-                        display: 'inline-block',
-                        verticalAlign: 'top'
-                    },
-                } : {
+    return (
+        <Controller
+            name={field.InternalName}
+            control={control}
+            defaultValue={value}
+            as={
+                <TextField
+                    id={field.InternalName}
+                    placeholder={placeholder}
+                    readOnly={readOnly}
+                    required={field.Required}
+                    multiline={field.TypeAsString == 'Note'}
+                    rows={field.TypeAsString == 'Note' ? 10 : null}
+                    cols={field.TypeAsString == 'Note' ? 50 : null}
+                    // onRenderLabel={this._onRenderLabel}
+                    // onChange={(e, t) => this._onChange(field, t)}
+                    styles={readOnly ? {
                         subComponentStyles: {
                             label: {
                                 root: {
                                     display: 'inline-block',
-                                    verticalAlign: 'middle'
+                                    verticalAlign: 'top'
                                 }
                             }
                         },
                         fieldGroup: {
+                            border: 'none',
                             display: 'inline-block',
-                            verticalAlign: 'middle'
-                        }
-                    }}
-                // onRenderLabel={this._onRenderLabel}
-                onChange={(e, t) => this._onChange(field, t)}
-            />
-        );
-    }
-}
+                            verticalAlign: 'top'
+                        },
+                    } : {
+                            subComponentStyles: {
+                                label: {
+                                    root: {
+                                        display: 'inline-block',
+                                        verticalAlign: 'middle'
+                                    }
+                                }
+                            },
+                            fieldGroup: {
+                                display: 'inline-block',
+                                verticalAlign: 'middle'
+                            }
+                        }}
+                />
+            }
+        />
+    );
+};
 
 export default FieldText;

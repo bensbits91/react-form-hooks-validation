@@ -5,7 +5,6 @@ const mcc = 'background:hotpink;color:black;';
 
 
 const FormFieldReadOnly = ({ val, type }) => {
-    console.log('%c val', mcc, val);
     const roVal = type == 'User' ? val.Title
         : type == 'UserMulti' ? val.map(v => v.Title).join(', ')
             : type == 'DateTime' ? dayjs(val).format('MM/DD/YYYY')

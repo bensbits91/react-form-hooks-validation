@@ -1,31 +1,38 @@
 import * as React from 'react';
+import { useForm, FormProvider } from "react-hook-form";
 import FormField from './FormField';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 
 const mcc = 'background:black;color:orange;';
 
 const fieldsToShow: any = [ // replace with React Hook Form
     { InternalName: 'Title' }, // can add DisplayName/Title, required, disabled... choices?
-    { InternalName: 'Status', Title: 'Status' },
+    { InternalName: 'Status' },
     { InternalName: 'DueDate' },
     { InternalName: 'AssignedTo' },
+    { InternalName: 'TextField1' },
+    { InternalName: 'Body' },
 ];
 
-const handlerFields = (field, value) => {
-    console.log('%c field', mcc, field);
-    console.log('%c value', mcc, value);
+// const handlerFields = (field, value) => {
+//     console.log('%c field', mcc, field);
+//     console.log('%c value', mcc, value);
 
-};
+// };
 
 const Form = ({ item, fields, context }) => {
-    console.log('%c context', mcc, context);
-    console.log('%c item', mcc, item);
-    console.log('%c fields', mcc, fields);
+
+    const methods = useForm();
+    const { handleSubmit } = methods;
+
+    const onSubmit = data => {
+        console.log(data);
+    };
+
 
     const elFormFields = fieldsToShow.map(fts => {
-        console.log('%c fts', mcc, fts);
 
         const fieldDef = fields.find((f: any) => f.InternalName == fts.InternalName);
-        console.log('%c fieldDef', mcc, fieldDef);
 
         return (
             <FormField
@@ -34,18 +41,26 @@ const Form = ({ item, fields, context }) => {
                 // type={fieldDef.TypeAsString}
                 field={fieldDef}
                 horizontal={true}
-                handler={handlerFields}
+                // handler={handlerFields}
                 context={context}
             />
         );
 
     });
-    console.log('%c elFormFields', mcc, elFormFields);
 
     return (
-        <>{elFormFields}</>
+        <FormProvider {...methods} >
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+
+                {elFormFields}
+
+                <PrimaryButton type="submit">Go</PrimaryButton>
+
+            </form>
+
+        </FormProvider>
     );
 };
-
 
 export default Form;
