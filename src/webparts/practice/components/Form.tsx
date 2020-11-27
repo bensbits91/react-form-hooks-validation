@@ -21,7 +21,7 @@ const fieldsToShow: any = [ // replace with React Hook Form
 // };
 
 const Form = ({
-    item,
+    item = {},
     fields,
     mode,
     context
