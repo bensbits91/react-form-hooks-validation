@@ -10,9 +10,10 @@ const routes = (items, fields, context) => {
     // console.log('%c items', mcc, items);
     return ({
         [baseUrlRel]: () => <List items={items} />,
-        [baseUrlRel + '/form/:itemId']: ({ itemId }) => <Form
+        [baseUrlRel + '/form/:mode/:itemId']: ({ mode, itemId }) => <Form
             item={items.find(d => d.Id == itemId)}
             fields={fields}
+            mode={mode}
             context={context}
         />, // should this filtering happen here?
     });

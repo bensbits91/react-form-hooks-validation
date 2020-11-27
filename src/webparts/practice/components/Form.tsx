@@ -20,7 +20,12 @@ const fieldsToShow: any = [ // replace with React Hook Form
 
 // };
 
-const Form = ({ item, fields, context }) => {
+const Form = ({
+    item,
+    fields,
+    mode,
+    context
+}) => {
 
     const methods = useForm();
     const { handleSubmit } = methods;
@@ -38,6 +43,7 @@ const Form = ({ item, fields, context }) => {
             <FormField
                 label={fts.Title || fieldDef.Title}
                 val={item[fts.InternalName]}
+                mode={mode}
                 // type={fieldDef.TypeAsString}
                 field={fieldDef}
                 horizontal={true}

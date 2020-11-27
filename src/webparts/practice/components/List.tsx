@@ -12,7 +12,7 @@ const _columns: IColumn[] = [
 ];
 
 const _onClickItemLink = (itemId) => {
-    navigate(baseUrlRel + '/form/' + itemId);
+    navigate(baseUrlRel + '/form/view/' + itemId);
 };
 
 const List = ({ items }) => {

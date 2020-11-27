@@ -10,20 +10,30 @@ const FormField = ({
     label,
     val,
     field,
+    mode,
     horizontal,
     // handler,
     context
 }) => {
-    return (// TODO: get 'mode' in props, show either edit or read-only
+    return (
         <Stack horizontal={horizontal}>
+
             <FormFieldLabel label={label} />
-            <FormFieldEdit
-                val={val}
-                field={field}
-                // handlerMain={handler}
-                context={context}
-            />
-            <FormFieldReadOnly val={val} type={field.TypeAsString} />
+
+            {mode == 'view' &&
+                <FormFieldReadOnly val={val} type={field.TypeAsString} />
+            }
+
+            {mode != 'view' &&
+                <FormFieldEdit
+                    val={val}
+                    field={field}
+                    mode={mode}
+                    // handlerMain={handler}
+                    context={context}
+                />
+            }
+
         </Stack>
     );
 };

@@ -9,11 +9,13 @@ const mcc = 'background-color:navy;color:white;';
 const FieldText = ({
     field,
     value,
+    mode,
     placeholder = 'Please enter text',
-    readOnly = false,
 }) => {
     const methods = useFormContext();
     const { control } = methods;
+
+    const readOnly = mode == 'view';
 
     return (
         <Controller

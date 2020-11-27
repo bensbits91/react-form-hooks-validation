@@ -10,6 +10,7 @@ const mcc = 'background:magenta;color:yellow;';
 const FormFieldEdit = ({
     val,
     field,
+    mode,
     context
 }) => {
 
@@ -67,7 +68,8 @@ const FormFieldEdit = ({
                     <FieldText
                         field={field}
                         value={val}
-                        readOnly={false} // pass mode param instead
+                        // readOnly={false} // pass mode param instead
+                        mode={mode}
                     />
                     {/* {helpText} */}
                 </div>
