@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FieldDatePicker from './fields/FieldDatePicker';
 import FieldDropdown from './fields/FieldDropdown';
+import FieldComboBox from './fields/FieldComboBox';
 import FieldPeoplePicker from './fields/FieldPeoplePicker';
 import FieldText from './fields/FieldText';
 import { debounce } from '@microsoft/sp-lodash-subset';
@@ -20,45 +21,61 @@ const FormFieldEdit = ({
 
 
     switch (field.TypeAsString) {
-        // case 'Choice':
-        // const options = field.options;
-        // let optionsToHide = [];
-        // for (const option in options) {
-        //     if (options[option].visibility == 'hidden') {
-        //         optionsToHide.push(option);
-        //     }
-        // }
-        // if (fieldDefinition.isRadioButtons) {
-        //     return (
-        //         <div /* className={styles.fieldWrap} */>
-        //                 <FieldRadioButtons
-        //                     field={fieldDefinition}
-        //                     optionsToHide={optionsToHide}
-        //                     value={val}
-        //                     labelOverride={labelOverride}
-        //                     handler={handler}
-        //                     disabled={fieldDefinition.InternalName == 'Rehireable'}
-        //                     required={isFieldRequired || fieldDefinition.Required}
-        //                 />
-        //                 /* {helpText} */
-        //         </div>
-        //     );
-        // }
-        // return (
-        //     <div /* className={styles.fieldWrap} */>
-        //             <FieldDropdown
-        //                 field={field}
-        //                 // optionsToHide={options}
-        //                 value={val}
-        //                 // labelOverride={labelOverride}
-        //                 // fieldMinWidth='200px'
-        //                 handler={handlerMain}
-        //                 // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
-        //                 // required={isFieldRequired || fieldDefinition.Required}
-        //             />
-        //             {/* {helpText} */}
-        //     </div>
-        // );
+        case 'Choice':
+            //     return (
+            //         <div /* className={styles.fieldWrap} */>
+            //         <FieldComboBox
+            //             field={field}
+            //             // optionsToHide={options}
+            //             value={val}
+            //             // labelOverride={labelOverride}
+            //             // fieldMinWidth='200px'
+            //             // handler={handlerMain}
+            //             // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
+            //             // required={isFieldRequired || fieldDefinition.Required}
+            //         />
+            //         {/* {helpText} */}
+            // </div>
+            // );
+            // const options = field.options;
+            // let optionsToHide = [];
+            // for (const option in options) {
+            //     if (options[option].visibility == 'hidden') {
+            //         optionsToHide.push(option);
+            //     }
+            // }
+            // if (fieldDefinition.isRadioButtons) {
+            //     return (
+            //         <div /* className={styles.fieldWrap} */>
+            //                 <FieldRadioButtons
+            //                     field={fieldDefinition}
+            //                     optionsToHide={optionsToHide}
+            //                     value={val}
+            //                     labelOverride={labelOverride}
+            //                     handler={handler}
+            //                     disabled={fieldDefinition.InternalName == 'Rehireable'}
+            //                     required={isFieldRequired || fieldDefinition.Required}
+            //                 />
+            //                 /* {helpText} */
+            //         </div>
+            //     );
+            // }
+            return (
+                <div /* className={styles.fieldWrap} */>
+                    <FieldDropdown
+                        field={field}
+                        // optionsToHide={options}
+                        value={val}
+                        // labelOverride={labelOverride}
+                        // fieldMinWidth='200px'
+                        // handler={handlerMain}
+                        // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
+                        // required={isFieldRequired || fieldDefinition.Required}
+                        mode={mode}
+                    />
+                    {/* {helpText} */}
+                </div>
+            );
         case 'Text':
         case 'Currency':
         case 'Number':

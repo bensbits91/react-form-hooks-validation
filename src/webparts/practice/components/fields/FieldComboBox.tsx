@@ -5,27 +5,41 @@ import {
     IComboBoxOption,
     SelectableOptionMenuItemType,
 } from 'office-ui-fabric-react/lib/ComboBox';
+import { Controller, useFormContext } from "react-hook-form";
 
+const mcc = 'background:darkgreen';
 
-const FieldComboBox = (
+const FieldComboBox = ({
     field,
     value,
-    handler?, // why does this have to be optional
-    ref? // why does this have to be optional
-) => {
-    // const comboBoxRef = React.useRef<IComboBox>(ref);
-    // const onOpenClick = React.useCallback(() => comboBoxRef.current?.focus(true), []);
+}) => {
+
+    const methods = useFormContext();
+    const { control } = methods;
+
+    const options: IComboBoxOption[] = field.Choices.map(f => ({
+        key: f.replace(/ /g, ''),
+        text: f
+    }));
+    console.log('%c field', mcc, field);
+    console.log('%c options', mcc, options);
 
     return (
         <div>
-            <ComboBox
-                // componentRef={comboBoxRef}
-                // defaultSelectedKey="C"
-                // label="Basic ComboBox"
-                allowFreeform
-                autoComplete="on"
-                options={field.Choices}
-                onChange={handler}
+            <Controller
+                name={field.InternalName}
+                control={control}
+                defaultValue={value/* .replace(/ /g, '') */} // can't get this to work <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                as={
+                    <ComboBox
+                        id={field.InternalName}
+                        options={options}
+                        // componentRef={comboBoxRef}
+                        value={value.replace(/ /g, '')} // can't get this to work <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                        allowFreeform
+                        autoComplete="on"
+                    />
+                }
             />
         </div>
     );
