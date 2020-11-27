@@ -5,59 +5,6 @@ import { Controller, useFormContext } from "react-hook-form";
 
 const mcc = 'background:navy;color:aqua;';
 
-
-
-
-
-
-
-// export interface FieldDropDownProps {
-//     field: any;
-//     // optionsToHide: any;
-//     value: string;
-//     handler: any;
-//     // label?: boolean;
-//     // labelOverride?: string;
-//     fieldMinWidth?: string;
-//     disabled?: boolean;
-//     required?: boolean;
-// }
-
-// export interface FieldDropDownState { }
-
-// class FieldDropDown extends React.Component<FieldDropDownProps, FieldDropDownState> {
-//     constructor(props: FieldDropDownProps) {
-//         super(props);
-//         this.state = {};
-//     }
-
-//     public componentDidMount() {
-//         console.log('%c : FieldDropDown -> componentDidMount -> this.props', mcc, this.props);
-//     }
-
-//     public render() {
-// const { field, /* optionsToHide,  */value, /* labelOverride,  */fieldMinWidth, disabled, required } = this.props;
-
-// const labelText = labelOverride || field.Title;
-
-// const label = this.props.label === true || this.props.label === undefined || this.props.label === null
-// ? required
-// ? labelText + '  *'
-// : labelText
-// : false;
-
-// let realOptions = [];
-
-// field.Choices.forEach(c => {
-//     if (optionsToHide.includes(c)) {
-//         return;
-//     }
-//     realOptions.push({
-//         key: c.replace(/ /g, ''),
-//         text: c
-//     });
-// });
-
 const FieldDropDown = ({
     field,
     value,
@@ -98,7 +45,7 @@ const FieldDropDown = ({
                     placeholder='Please make a selection'
                     options={options}
                     defaultSelectedKey={value && value != 'noselection' ? value.replace(/ /g, '') : null}
-                    onChange={(e, o) => onChange(o.key/* , o.text */)}
+                    onChange={(e, o) => onChange(o.key)}
 
 
 

@@ -21,40 +21,15 @@ const FormFieldEdit = ({
 
 
     switch (field.TypeAsString) {
+
         case 'Choice':
-            //     return (
-            //         <div /* className={styles.fieldWrap} */>
-            //         <FieldComboBox
-            //             field={field}
-            //             // optionsToHide={options}
-            //             value={val}
-            //             // labelOverride={labelOverride}
-            //             // fieldMinWidth='200px'
-            //             // handler={handlerMain}
-            //             // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
-            //             // required={isFieldRequired || fieldDefinition.Required}
-            //         />
-            //         {/* {helpText} */}
-            // </div>
-            // );
-            // const options = field.options;
-            // let optionsToHide = [];
-            // for (const option in options) {
-            //     if (options[option].visibility == 'hidden') {
-            //         optionsToHide.push(option);
-            //     }
-            // }
             // if (fieldDefinition.isRadioButtons) {
             //     return (
             //         <div /* className={styles.fieldWrap} */>
             //                 <FieldRadioButtons
             //                     field={fieldDefinition}
-            //                     optionsToHide={optionsToHide}
             //                     value={val}
-            //                     labelOverride={labelOverride}
-            //                     handler={handler}
-            //                     disabled={fieldDefinition.InternalName == 'Rehireable'}
-            //                     required={isFieldRequired || fieldDefinition.Required}
+            //                     mode={mode}
             //                 />
             //                 /* {helpText} */
             //         </div>
@@ -64,18 +39,13 @@ const FormFieldEdit = ({
                 <div /* className={styles.fieldWrap} */>
                     <FieldDropdown
                         field={field}
-                        // optionsToHide={options}
                         value={val}
-                        // labelOverride={labelOverride}
-                        // fieldMinWidth='200px'
-                        // handler={handlerMain}
-                        // disabled={fieldDefinition.InternalName == 'ReviewStatus'}
-                        // required={isFieldRequired || fieldDefinition.Required}
                         mode={mode}
                     />
                     {/* {helpText} */}
                 </div>
             );
+
         case 'Text':
         case 'Currency':
         case 'Number':
@@ -85,26 +55,23 @@ const FormFieldEdit = ({
                     <FieldText
                         field={field}
                         value={val}
-                        // readOnly={false} // pass mode param instead
                         mode={mode}
                     />
                     {/* {helpText} */}
                 </div>
             );
-        // case 'DateTime':
-        //     return (
-        //         <div /* className={styles.fieldWrap} */>
-        //             <FieldDatePicker
-        //                 field={field}
-        //                 value={val}
-        //                 // labelOverride={labelOverride}
-        //                 handler={handlerMain}
-        //                 // disabled={field.InternalName == 'ReviewDate' || field.InternalName == 'EffectiveDateofChange'}
-        //                 required={/* isFieldRequired ||  */field.Required}
-        //             />
-        //             {/* {helpText} */}
-        //         </div>
-        //     );
+
+        case 'DateTime':
+            return (
+                <div /* className={styles.fieldWrap} */>
+                    <FieldDatePicker
+                        field={field}
+                        dateValue={val}
+                    />
+                    {/* {helpText} */}
+                </div>
+            );
+
         // case 'User': // CAN'T GET THIS.CONTEXT?????????????????????????????????????????????????????????????????
         //     return (
         //         <div /* className={styles.fieldWrap} */>
@@ -119,6 +86,7 @@ const FormFieldEdit = ({
         //                 {/* {helpText} */}
         //         </div>
         //     );
+
         default:
             return (
                 <div>{field.Title}</div>
