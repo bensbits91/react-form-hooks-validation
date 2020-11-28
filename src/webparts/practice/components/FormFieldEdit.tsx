@@ -1,10 +1,11 @@
 import * as React from 'react';
 import FieldDatePicker from './fields/FieldDatePicker';
 import FieldDropdown from './fields/FieldDropdown';
-import FieldComboBox from './fields/FieldComboBox';
+import FieldRadioButtons from './fields/FieldRadioButtons';
+// import FieldComboBox from './fields/FieldComboBox';
 import FieldPeoplePicker from './fields/FieldPeoplePicker';
 import FieldText from './fields/FieldText';
-import { debounce } from '@microsoft/sp-lodash-subset';
+// import { debounce } from '@microsoft/sp-lodash-subset';
 
 const mcc = 'background:magenta;color:yellow;';
 
@@ -23,18 +24,18 @@ const FormFieldEdit = ({
     switch (field.TypeAsString) {
 
         case 'Choice':
-            // if (fieldDefinition.isRadioButtons) {
-            //     return (
-            //         <div /* className={styles.fieldWrap} */>
-            //                 <FieldRadioButtons
-            //                     field={fieldDefinition}
-            //                     value={val}
-            //                     mode={mode}
-            //                 />
-            //                 /* {helpText} */
-            //         </div>
-            //     );
-            // }
+            if (field.SchemaXml.indexOf('RadioButtons') > -1) {
+                return (
+                    <div /* className={styles.fieldWrap} */>
+                        <FieldRadioButtons
+                            field={field}
+                            value={val}
+                            mode={mode}
+                        />
+                        {/* {helpText} */}
+                    </div>
+                );
+            }
             return (
                 <div /* className={styles.fieldWrap} */>
                     <FieldDropdown
@@ -72,20 +73,20 @@ const FormFieldEdit = ({
                 </div>
             );
 
-        // case 'User': // CAN'T GET THIS.CONTEXT?????????????????????????????????????????????????????????????????
-        //     return (
-        //         <div /* className={styles.fieldWrap} */>
-        //                 <FieldPeoplePicker
-        //                     field={field}
-        //                     value={val}
-        //                     // labelOverride={labelOverride}
-        //                     handler={handlerMain}
-        //                     context={context}
-        //                     disabled={field.InternalName == 'ReviewedBy'}
-        //                 />
-        //                 {/* {helpText} */}
-        //         </div>
-        //     );
+        case 'User':
+            return (
+                <div /* className={styles.fieldWrap} */>
+                    <FieldPeoplePicker
+                        field={field}
+                        value={val}
+                        // labelOverride={labelOverride}
+                        // handler={handlerMain}
+                        context={context}
+                    // disabled={field.InternalName == 'ReviewedBy'}
+                    />
+                    {/* {helpText} */}
+                </div>
+            );
 
         default:
             return (

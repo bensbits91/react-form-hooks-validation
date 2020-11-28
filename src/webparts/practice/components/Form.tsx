@@ -5,19 +5,19 @@ import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 
 const mcc = 'background:black;color:orange;';
 
-const fieldsToShow: any = [ // replace with React Hook Form
+const fieldsToShow: any = [
     { InternalName: 'Title' }, // can add DisplayName/Title, required, disabled... choices?
     { InternalName: 'Status' },
     { InternalName: 'DueDate' },
     { InternalName: 'AssignedTo' },
-    { InternalName: 'TextField1' },
+    { InternalName: 'TextField1', Title: 'Text Field One' },
+    { InternalName: 'ChoiceAsRadio1', Title: 'Radio Buttons One' },
     { InternalName: 'Body' },
 ];
 
 // const handlerFields = (field, value) => {
 //     console.log('%c field', mcc, field);
 //     console.log('%c value', mcc, value);
-
 // };
 
 const Form = ({
@@ -31,7 +31,7 @@ const Form = ({
     const { handleSubmit } = methods;
 
     const onSubmit = data => {
-        console.log(data);
+        console.log('%c data', mcc, data);
     };
 
 
@@ -41,11 +41,10 @@ const Form = ({
 
         return (
             <FormField
+                field={fieldDef}
                 label={fts.Title || fieldDef.Title}
                 val={item[fts.InternalName]}
                 mode={mode}
-                // type={fieldDef.TypeAsString}
-                field={fieldDef}
                 horizontal={true}
                 // handler={handlerFields}
                 context={context}
