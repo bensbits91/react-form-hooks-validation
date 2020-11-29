@@ -1,87 +1,146 @@
 import * as React from 'react';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { Controller, useFormContext } from "react-hook-form";
+
+
+const mcc = 'background:magenta;color:black;';
+
+
+const FieldRadioButtons = ({
+    field,
+    value,
+    mode,
+    horizontal = false,
+}) => {
+    const methods = useFormContext();
+    const { control } = methods;
+
+
+    const options: IChoiceGroupOption[] = field.Choices.map(c => ({ key: c.replace(/ /g, ''), text: c }))
+
+    // const selectedKey = value /* && value != 'noselection'  */ ? value.replace(/ /g, '') : null;
+    // console.log('%c selectedKey', mcc, selectedKey);
+
+    // const [selectedKey, setSelectedKey] = React.useState<string>('B');
+
+    // const onChange = React.useCallback((ev: React.SyntheticEvent<HTMLElement>, option: IChoiceGroupOption) => {
+    //     setSelectedKey(option.key);
+    // }, []);
+
+    return (
+        <Controller
+            name={field.InternalName}
+            control={control}
+            defaultValue={value /* && value != 'noselection'  */? value.replace(/ /g, '') : null} // do I want key (no spaces) or text (with spaces) for saving data????????
+            render={({ onChange, onBlur, value, name, ref }) => (
+                <ChoiceGroup
+                    id={field.InternalName}
+                    // label={label}
+                    options={options}
+                    // selectedKey={selectedKey}
+                    defaultSelectedKey={value /* && value != 'noselection'  */? value.replace(/ /g, '') : null} // do I want key (no spaces) or text (with spaces) for saving data????????
+                    // disabled={disabled}
+                    onChange={(e, o) => onChange(o.key)} // do I want key (no spaces) or text (with spaces) for saving data????????
+                    styles={horizontal
+                        ? {
+                            root: {
+                                display: 'inline-flex'
+                            },
+                            flexContainer: {
+                                display: 'inline-flex'
+                            },
+                        }
+                        : {}
+                    }
+                />
+            )}
+        />
+    );
+};
 
 
 
-export interface FieldRadioButtonsProps {
-    field: any;
-    // optionsToHide?: any;
-    value: string;
-    // handler: any;
-    // label?: boolean;
-    // labelOverride?: string;
-    // disabled?: boolean;
-    // required?: boolean;
-    mode: string;
-}
+// export interface FieldRadioButtonsProps {
+//     field: any;
+//     // optionsToHide?: any;
+//     value: string;
+//     // handler: any;
+//     // label?: boolean;
+//     // labelOverride?: string;
+//     // disabled?: boolean;
+//     // required?: boolean;
+//     mode: string;
+// }
 
-export interface FieldRadioButtonsState {
+// export interface FieldRadioButtonsState {
 
-}
+// }
 
-class FieldRadioButtons extends React.Component<FieldRadioButtonsProps, FieldRadioButtonsState> {
-    constructor(props: FieldRadioButtonsProps) {
-        super(props);
-        this.state = {};
-    }
+// class FieldRadioButtons extends React.Component<FieldRadioButtonsProps, FieldRadioButtonsState> {
+//     constructor(props: FieldRadioButtonsProps) {
+//         super(props);
+//         this.state = {};
+//     }
 
-    public render() {
-        const { field, /* optionsToHide,  */value/* , labelOverride, disabled, required */ } = this.props;
+//     public render() {
+//         const { field, /* optionsToHide,  */value/* , labelOverride, disabled, required */ } = this.props;
 
-        // const labelText = labelOverride || field.Title;
+// const labelText = labelOverride || field.Title;
 
-        // const label = this.props.label === true || this.props.label === undefined || this.props.label === null
-        //     ? required
-        //         ? labelText + '  *'
-        //         : labelText
-        //     : false;
+// const label = this.props.label === true || this.props.label === undefined || this.props.label === null
+//     ? required
+//         ? labelText + '  *'
+//         : labelText
+//     : false;
 
-        let realOptions = [];
+// let realOptions = [];
 
-        // field.Choices.forEach(c => {
-        //     if (optionsToHide.includes(c)) {
-        //         return;
-        //     }
-        //     realOptions.push({
-        //         key: c.replace(/ /g, ''),
-        //         text: c,
-        //         styles: {
-        //             root: {
-        //                 marginTop: 0
-        //             },
-        //             choiceFieldWrapper: {
-        //                 width: 60 // assumes only brief options like yes/no
-        //             },
-        //         }
+// field.Choices.forEach(c => {
+//     if (optionsToHide.includes(c)) {
+//         return;
+//     }
+//     realOptions.push({
+//         key: c.replace(/ /g, ''),
+//         text: c,
+//         styles: {
+//             root: {
+//                 marginTop: 0
+//             },
+//             choiceFieldWrapper: {
+//                 width: 60 // assumes only brief options like yes/no
+//             },
+//         }
 
-        //     });
-        // });
+//     });
+// });
 
-        const options: IChoiceGroupOption[] = field.Choices.map(c => ({ key: c.replace(/ /g, ''), text: c }))
+//         const options: IChoiceGroupOption[] = field.Choices.map(c => ({ key: c.replace(/ /g, ''), text: c }))
 
-        const selectedKey = value && value != 'noselection' ? value.replace(/ /g, '') : null;
+//         const selectedKey = value /* && value != 'noselection'  */? value.replace(/ /g, '') : null;
+//         console.log('%c selectedKey', mcc, selectedKey);
+//         console.log('%c value', mcc, value);
 
 
 
-        return (
-            <ChoiceGroup
-                id={field.InternalName}
-                // label={label}
-                options={options}
-                selectedKey={selectedKey}
-                // disabled={disabled}
-                // onChange={(e, o) => this.props.handler(field.InternalName, o.key, o.text)}
-                styles={{
-                    root: {
-                        display: 'inline-flex'
-                    },
-                    flexContainer: {
-                        display: 'inline-flex'
-                    },
-                }}
-            />
-        );
-    }
-}
+//         return (
+//             <ChoiceGroup
+//                 id={field.InternalName}
+//                 // label={label}
+//                 options={options}
+//                 selectedKey={selectedKey}
+//                 // disabled={disabled}
+//                 // onChange={(e, o) => this.props.handler(field.InternalName, o.key, o.text)}
+//                 styles={{
+//                     root: {
+//                         display: 'inline-flex'
+//                     },
+//                     flexContainer: {
+//                         display: 'inline-flex'
+//                     },
+//                 }}
+//             />
+//         );
+//     }
+// }
 
 export default FieldRadioButtons;

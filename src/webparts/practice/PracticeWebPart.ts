@@ -17,7 +17,6 @@ export interface IPracticeWebPartProps {
 export default class PracticeWebPart extends BaseClientSideWebPart<IPracticeWebPartProps> {
 
   public render(): void {
-    console.log('PracticeWebPart -> this.context', this.context);
     const element: React.ReactElement<IPracticeProps> = React.createElement(
       Practice,
       {

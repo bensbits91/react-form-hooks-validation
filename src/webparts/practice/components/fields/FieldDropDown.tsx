@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dropdown, IDropdownOption/* , IDropdownStyles */ } from 'office-ui-fabric-react/lib/Dropdown';
-import { unset } from '@microsoft/sp-lodash-subset';
+// import { unset } from '@microsoft/sp-lodash-subset';
 import { Controller, useFormContext } from "react-hook-form";
 
 const mcc = 'background:navy;color:aqua;';
@@ -38,14 +38,14 @@ const FieldDropDown = ({
         <Controller
             name={field.InternalName}
             control={control}
-            defaultValue={value && value != 'noselection' ? value.replace(/ /g, '') : null}
+            defaultValue={value && value != 'noselection' ? value.replace(/ /g, '') : null} // do I want key (no spaces) or text (with spaces) for saving data????????
             render={({ onChange, onBlur, value, name, ref }) => (
                 <Dropdown
                     id={name}
                     placeholder='Please make a selection'
                     options={options}
-                    defaultSelectedKey={value && value != 'noselection' ? value.replace(/ /g, '') : null}
-                    onChange={(e, o) => onChange(o.key)}
+                    defaultSelectedKey={value && value != 'noselection' ? value.replace(/ /g, '') : null} // do I want key (no spaces) or text (with spaces) for saving data????????
+                    onChange={(e, o) => onChange(o.key)} // do I want key (no spaces) or text (with spaces) for saving data????????
 
 
 
