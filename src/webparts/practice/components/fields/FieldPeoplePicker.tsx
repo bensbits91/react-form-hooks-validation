@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -26,7 +25,7 @@ const FieldPeoplePicker = ({
             name={field.InternalName}
             control={control}
             defaultValue={value.EMail || value.SipAddress || value.UserName}
-            render={({ onChange, /* onBlur,  */value, name, ref }) => (
+            render={({ onChange, /* onBlur,  */value/* , name, ref */ }) => (
                 <PeoplePicker
                     // key={name}
                     // ref={ref}

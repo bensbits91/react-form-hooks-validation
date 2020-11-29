@@ -39,7 +39,7 @@ const FieldDropDown = ({
             name={field.InternalName}
             control={control}
             defaultValue={value && value != 'noselection' ? value.replace(/ /g, '') : null} // do I want key (no spaces) or text (with spaces) for saving data????????
-            render={({ onChange, onBlur, value, name, ref }) => (
+            render={({ onChange, /* onBlur,  */value, name/* , ref */ }) => (
                 <Dropdown
                     id={name}
                     placeholder='Please make a selection'

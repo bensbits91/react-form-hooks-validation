@@ -22,15 +22,20 @@ const FieldText = ({
             name={field.InternalName}
             control={control}
             defaultValue={value}
-            as={
+            rules={{ required: true }} // working, but need to show error
+            // as={ // change to render
+            render={({ onChange, /* onBlur,  */value, name, ref }) => (
                 <TextField
-                    id={field.InternalName}
+                    id={name}
+                    componentRef={ref}
                     placeholder={placeholder}
+                    defaultValue={value}
                     readOnly={readOnly}
                     required={field.Required}
                     multiline={field.TypeAsString == 'Note'}
                     rows={field.TypeAsString == 'Note' ? 10 : null}
                     cols={field.TypeAsString == 'Note' ? 50 : null}
+                    onChange={onChange}
                     // onRenderLabel={this._onRenderLabel}
                     // onChange={(e, t) => this._onChange(field, t)}
                     styles={readOnly ? {
@@ -62,7 +67,7 @@ const FieldText = ({
                             }
                         }}
                 />
-            }
+            )}
         />
     );
 };
