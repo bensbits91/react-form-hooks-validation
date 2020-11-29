@@ -52,8 +52,13 @@ const Form = ({
                     context={context}
                 />
                 {errors[fts.InternalName] &&
-                    <div style={{ color: 'red' }}>{errorMsgs[errors[fts.InternalName].type]}</div>
-                    // <div style={{ color: 'red' }}>{errors[fts.InternalName].type + ': ' + errors[fts.InternalName].message}</div>
+                    <div style={{ color: 'red' }}>
+                        {
+                            errors[fts.InternalName].message // specific error message in component
+                            || errorMsgs[errors[fts.InternalName].type] // error message from errorMsgs.tsx
+                            || errorMsgs.unknown // unknown error message from errorMsgs.tsx
+                        }
+                    </div>
                 }
             </>
         );

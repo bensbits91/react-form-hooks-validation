@@ -22,7 +22,13 @@ const FieldText = ({
             name={field.InternalName}
             control={control}
             defaultValue={value}
-            rules={{ required: true }} // working, but need to show error
+            rules={{
+                required: true,
+                minLength: {
+                    value: 10,
+                    message: 'minLength error message' // <p>error message</p>
+                }
+            }} // working, but need to show error
             // as={ // change to render
             render={({ onChange, /* onBlur,  */value, name, ref }) => (
                 <TextField
