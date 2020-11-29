@@ -51,10 +51,9 @@ export const getFields = (
 
         // if (getAll) return fields.getAll();
 
-        const asdfasdf = fields.get();
-        console.log('%c asdfasdf', mcc, asdfasdf);
+        const formFields = fields.get();
 
-        return asdfasdf;
+        return formFields;
     }
     catch (err) {
         return err;

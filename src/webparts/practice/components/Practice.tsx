@@ -7,9 +7,7 @@ import App from './App';
 export default class Practice extends React.Component<IPracticeProps, {}> {
   public render(): React.ReactElement<IPracticeProps> {
     return (
-      <App
-        context={this.props.context} // WHY NO CONTEXT?????????????????
-      />
+      <App context={this.props.context} />
     );
   }
 }
@@ -17,20 +15,17 @@ export default class Practice extends React.Component<IPracticeProps, {}> {
 /*
 to try
 
-  react hook forms
-    componentRef
-      use choicegroup instead of dropdown
 
-  react-input-enhancements
+react-input-enhancements
 
 
-  debugger
-  error boundaries?
-  scss modules better
-  convert classes to functional components
-    fields
+debugger
+scss modules better
+convert classes to functional components
 
 
+  x   error boundaries
+  x   react hook forms
   x   lodash - debounce form inputs
   x   hookrouter
   x   async

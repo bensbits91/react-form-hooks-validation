@@ -28,12 +28,10 @@ export const useFetch = (fetchRequest) => {
     useEffect(() => {
         let cancelRequest = false;
         if (!fetchRequest) return;
-        console.log('%c fetchRequest', mcc, fetchRequest);
 
         const { siteUrl, listName, select, expand, filter, orderBy, orderAsc, getAll, requestedEntityType = 'items' } = fetchRequest;
 
         const url = siteUrl + '/' + listName + '/' + requestedEntityType;
-        console.log('%c url', mcc, url);
 
         const fetchData = async () => {
             dispatch({ type: 'FETCHING' });
@@ -59,7 +57,7 @@ export const useFetch = (fetchRequest) => {
                             expand,
                             filter,
                         );
-                    console.log('%c response', mcc, response);
+                    // console.log('%c response', mcc, response);
                     cache.current[url] = response;
                     if (cancelRequest) {
                         return;
@@ -79,6 +77,6 @@ export const useFetch = (fetchRequest) => {
         };
     }, [fetchRequest]);
 
-    console.log('%c state', mcc, state);
+    // console.log('%c state', mcc, state);
     return state;
 };

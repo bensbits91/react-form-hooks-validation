@@ -9,7 +9,19 @@ import { ErrorBoundary } from 'react-error-boundary';
 const fetchItemsRequest = {
     siteUrl: siteUrl,
     listName: 'Tasks',
-    select: ['*', 'Author/Title', 'AssignedTo/Title'],
+    select: [
+        '*',
+        'Author/Title',
+        'AssignedTo/Title',
+        'AssignedTo/EMail',
+        // 'AssignedTo/LoginName',
+        'AssignedTo/Id',
+        'AssignedTo/ID',
+        'AssignedTo/SipAddress',
+        'AssignedTo/UserName',
+        // 'AssignedTo/ImnName',
+        // 'AssignedTo/secondaryText',
+    ],
     expand: ['Author', 'AssignedTo'],
     filter: '',
     orderBy: '',
@@ -50,13 +62,9 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 
 
 const App = (context) => {
-    console.log('%c context', mcc, context);
-
     const { status, error, data } = useFetch(fetchItemsRequest);
-    console.log('%c { status, error, data }', mcc, { status, error, data });
 
     const { status: fieldsStatus, error: fieldsError, data: fieldsData } = useFetch(fetchFieldsRequest);
-    console.log('%c { fieldsStatus, fieldsError, fieldsData }', mcc, { fieldsStatus, fieldsError, fieldsData });
 
     const routeResult = useRoutes(routes(data, fieldsData, context));
 
