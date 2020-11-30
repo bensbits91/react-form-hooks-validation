@@ -15,15 +15,25 @@ export default class Practice extends React.Component<IPracticeProps, {}> {
 /*
 to try
 
+  react-hook-form
+    conditional
+      rules
+      visibility
 
-react-input-enhancements
+  react-text-mask
+    https://www.npmjs.com/package/react-text-mask
+    https://github.com/text-mask/text-mask
+    https://codesandbox.io/s/react-currency-input-with-react-text-mask-4es23?file=/src/CurrencyInput.js
+    https://codesandbox.io/examples/package/react-text-mask
 
 
-debugger
-scss modules better
-convert classes to functional components
 
 
+  scss modules better
+  debugger
+
+
+  x   convert classes to functional components
   x   error boundaries
   x   react hook forms
   x   lodash - debounce form inputs

@@ -5,6 +5,7 @@ import FieldRadioButtons from './fields/FieldRadioButtons';
 // import FieldComboBox from './fields/FieldComboBox';
 import FieldPeoplePicker from './fields/FieldPeoplePicker';
 import FieldText from './fields/FieldText';
+import FieldMasked from './fields/FieldMasked';
 // import { debounce } from '@microsoft/sp-lodash-subset';
 
 const mcc = 'background:magenta;color:yellow;';
@@ -12,6 +13,7 @@ const mcc = 'background:magenta;color:yellow;';
 const FormFieldEdit = ({
     val,
     field,
+    fieldOverrides,
     mode,
     context
 }) => {
@@ -21,7 +23,10 @@ const FormFieldEdit = ({
     // }, 500);
 
 
-    switch (field.TypeAsString) {
+    const fieldType = fieldOverrides.TypeAsString || field.TypeAsString;
+
+
+    switch (fieldType) {
 
         case 'Choice':
             if (field.SchemaXml.indexOf('RadioButtons') > -1) {
@@ -48,15 +53,32 @@ const FormFieldEdit = ({
             );
 
         case 'Text':
-        case 'Currency':
-        case 'Number':
         case 'Note':
+            // case 'Currency':
+            // case 'Number':
             return (
                 <div /* className={styles.fieldWrap} */>
                     <FieldText
                         field={field}
                         value={val}
                         mode={mode}
+                    />
+                    {/* {helpText} */}
+                </div>
+            );
+
+        // case 'Currency':
+        // case 'Number':
+        case 'Email':
+        // case 'Phone':
+        // case 'Zip':
+            return (
+                <div /* className={styles.fieldWrap} */>
+                    <FieldMasked
+                        field={field}
+                        fieldOverrides={fieldOverrides}
+                        value={val}
+                    // mode={mode}
                     />
                     {/* {helpText} */}
                 </div>

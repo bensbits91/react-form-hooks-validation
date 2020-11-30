@@ -28,7 +28,10 @@
     "office-ui-fabric-react": "6.189.2",
     "react": "16.8.5",
     "react-dom": "16.8.5",
-    "react-error-boundary": "^3.0.2"
+    "react-error-boundary": "^3.0.2",
+    "react-hook-form": "^6.12.1",
+    "react-text-mask": "^5.4.3",
+    "text-mask-addons": "^3.8.0"
   },
   "resolutions": {
     "@types/react": "16.8.8"

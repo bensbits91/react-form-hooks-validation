@@ -13,6 +13,11 @@ const fieldsToShow: any = [
     { InternalName: 'AssignedTo' },
     { InternalName: 'TextField1', Title: 'Text Field One' },
     { InternalName: 'ChoiceAsRadio1', Title: 'Radio Buttons One' },
+    { InternalName: 'Currency1', Title: 'Currency One' },
+    { InternalName: 'Email1', Title: 'Email One', TypeAsString: 'Email' },
+    { InternalName: 'Percentage1', Title: 'Percentage One' },
+    { InternalName: 'PhoneNumber1', Title: 'Phone Number One', TypeAsString: 'Phone' },
+    { InternalName: 'ZipCode1', Title: 'Zip Code One', TypeAsString: 'Zip' },
     { InternalName: 'Body' },
 ];
 
@@ -44,6 +49,7 @@ const Form = ({
             <>
                 <FormField
                     field={fieldDef}
+                    fieldOverrides={fts}
                     label={fts.Title || fieldDef.Title}
                     val={item[fts.InternalName]}
                     mode={mode}
