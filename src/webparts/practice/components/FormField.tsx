@@ -10,6 +10,7 @@ const FormField = ({
     label,
     val,
     field,
+    fieldOverrides,
     mode,
     horizontal,
     // handler,
@@ -28,6 +29,7 @@ const FormField = ({
                 <FormFieldEdit
                     val={val}
                     field={field}
+                    fieldOverrides={fieldOverrides}
                     mode={mode}
                     // handlerMain={handler}
                     context={context}

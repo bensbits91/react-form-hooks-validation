@@ -2,16 +2,15 @@ import * as React from 'react';
 import FieldDatePicker from './fields/FieldDatePicker';
 import FieldDropdown from './fields/FieldDropdown';
 import FieldRadioButtons from './fields/FieldRadioButtons';
-// import FieldComboBox from './fields/FieldComboBox';
 import FieldPeoplePicker from './fields/FieldPeoplePicker';
 import FieldText from './fields/FieldText';
-// import { debounce } from '@microsoft/sp-lodash-subset';
 
-const mcc = 'background:magenta;color:yellow;';
+const mcc = 'background:magenta;color:black;';
 
 const FormFieldEdit = ({
     val,
     field,
+    fieldOverrides,
     mode,
     context
 }) => {
@@ -20,8 +19,9 @@ const FormFieldEdit = ({
     //     handlerMain(f, v);
     // }, 500);
 
+    const fieldType = fieldOverrides.TypeAsString || field.TypeAsString;
 
-    switch (field.TypeAsString) {
+    switch (fieldType) {
 
         case 'Choice':
             if (field.SchemaXml.indexOf('RadioButtons') > -1) {
@@ -51,10 +51,14 @@ const FormFieldEdit = ({
         case 'Currency':
         case 'Number':
         case 'Note':
+        case 'Email':
+        case 'Phone':
+        case 'Zip':
             return (
                 <div /* className={styles.fieldWrap} */>
                     <FieldText
                         field={field}
+                        fieldOverrides={fieldOverrides}
                         value={val}
                         mode={mode}
                     />

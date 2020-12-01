@@ -9,7 +9,6 @@ const FieldDatePicker = ({
     field,
     dateValue
 }) => {
-    console.log('%c field', mcc, field);
     const methods = useFormContext();
     const { control } = methods;
 

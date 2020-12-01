@@ -8,28 +8,51 @@ const mcc = 'background-color:navy;color:white;';
 
 const FieldText = ({
     field,
+    fieldOverrides,
     value,
     mode,
     placeholder = 'Please enter text',
 }) => {
-    const methods = useFormContext();
-    const { control } = methods;
+    const methods = useFormContext(),
+        { control } = methods,
+        readOnly = mode == 'view',
+        fieldType = fieldOverrides.TypeAsString || field.TypeAsString,
+        fieldRequired = fieldOverrides.Required || field.Required,
+        fieldRules = (() => {
+            switch (fieldType) {
+                case 'Email':
+                    return ({ // how do I allow empty strings?????????????????????????????????????????????????????????????????????????????
+                        pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/, // https://regexlib.com/Search.aspx?k=email
+                        // pattern: /(?:(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))?/, // https://regexlib.com/Search.aspx?k=email
+                        // pattern: /^$|(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/, // https://regexlib.com/Search.aspx?k=email
+                        // pattern: /^$|(.+)@(.+){2,}\.(.+){2,}/, // https://regexlib.com/Search.aspx?k=email
+                    });
+                case 'Phone':
+                    return ({ // how do I allow empty strings?????????????????????????????????????????????????????????????????????????????
+                        pattern: /((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}/, // https://regexlib.com/Search.aspx?k=phone
+                    });
+                case 'Zip':
+                    return ({ // how do I allow empty strings?????????????????????????????????????????????????????????????????????????????
+                        pattern: /^(\d{5}|)$|^(\d{5}-\d{4}|\/\/|)$/, // https://regexlib.com/Search.aspx?k=zip
+                    });
+                default:
+                    return ({
 
-    const readOnly = mode == 'view';
+                    });
+            }
+        })();
+
+    if (fieldRequired) {
+        fieldRules['Required'] = true;
+    }
+
 
     return (
         <Controller
             name={field.InternalName}
             control={control}
             defaultValue={value}
-            rules={{
-                required: true,
-                minLength: {
-                    value: 10,
-                    message: 'minLength error message' // <p>error message</p>
-                }
-            }} // working, but need to show error
-            // as={ // change to render
+            rules={fieldRules}
             render={({ onChange, /* onBlur,  */value, name, ref }) => (
                 <TextField
                     id={name}
@@ -37,13 +60,11 @@ const FieldText = ({
                     placeholder={placeholder}
                     defaultValue={value}
                     readOnly={readOnly}
-                    required={field.Required}
-                    multiline={field.TypeAsString == 'Note'}
-                    rows={field.TypeAsString == 'Note' ? 10 : null}
-                    cols={field.TypeAsString == 'Note' ? 50 : null}
+                    required={fieldRequired}
+                    multiline={fieldType == 'Note'}
+                    rows={fieldType == 'Note' ? 10 : null}
+                    cols={fieldType == 'Note' ? 50 : null}
                     onChange={onChange}
-                    // onRenderLabel={this._onRenderLabel}
-                    // onChange={(e, t) => this._onChange(field, t)}
                     styles={readOnly ? {
                         subComponentStyles: {
                             label: {
