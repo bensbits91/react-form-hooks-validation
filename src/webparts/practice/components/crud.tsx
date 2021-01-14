@@ -1,6 +1,4 @@
-import { /* sp,  */Web } from "@pnp/sp/presets/all";
-
-const mcc = 'background:lime;color:black;';
+import { Web } from "@pnp/sp/presets/all";
 
 export const getItems = (
     siteUrl,
@@ -18,8 +16,7 @@ export const getItems = (
             .select(...select)
             .expand(...expand)
             .filter(filter)
-            .orderBy(orderBy, orderAsc)
-            ;
+            .orderBy(orderBy, orderAsc);
 
         if (getAll) return items.getAll();
 

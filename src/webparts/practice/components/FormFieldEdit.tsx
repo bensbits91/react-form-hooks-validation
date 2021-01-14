@@ -5,8 +5,6 @@ import FieldRadioButtons from './fields/FieldRadioButtons';
 import FieldPeoplePicker from './fields/FieldPeoplePicker';
 import FieldText from './fields/FieldText';
 
-const mcc = 'background:magenta;color:black;';
-
 const FormFieldEdit = ({
     val,
     field,
@@ -14,10 +12,6 @@ const FormFieldEdit = ({
     mode,
     context
 }) => {
-
-    // const handlerTextField = debounce((f, v) => {
-    //     handlerMain(f, v);
-    // }, 500);
 
     const fieldType = fieldOverrides.TypeAsString || field.TypeAsString;
 
@@ -32,7 +26,6 @@ const FormFieldEdit = ({
                             value={val}
                             mode={mode}
                         />
-                        {/* {helpText} */}
                     </div>
                 );
             }
@@ -43,7 +36,6 @@ const FormFieldEdit = ({
                         value={val}
                         mode={mode}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
@@ -62,7 +54,6 @@ const FormFieldEdit = ({
                         value={val}
                         mode={mode}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
@@ -73,7 +64,6 @@ const FormFieldEdit = ({
                         field={field}
                         dateValue={val}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
@@ -85,10 +75,9 @@ const FormFieldEdit = ({
                         value={val}
                         // labelOverride={labelOverride}
                         // handler={handlerMain}
+                        // disabled={field.InternalName == 'ReviewedBy'}
                         context={context}
-                    // disabled={field.InternalName == 'ReviewedBy'}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 

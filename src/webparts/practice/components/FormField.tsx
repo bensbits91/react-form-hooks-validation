@@ -4,8 +4,6 @@ import FormFieldEdit from './FormFieldEdit';
 import FormFieldLabel from './FormFieldLabel';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 
-const mcc = 'background:orange;color:black;';
-
 const FormField = ({
     label,
     val,
@@ -13,7 +11,6 @@ const FormField = ({
     fieldOverrides,
     mode,
     horizontal,
-    // handler,
     context
 }) => {
     return (
@@ -31,7 +28,6 @@ const FormField = ({
                     field={field}
                     fieldOverrides={fieldOverrides}
                     mode={mode}
-                    // handlerMain={handler}
                     context={context}
                 />
             }

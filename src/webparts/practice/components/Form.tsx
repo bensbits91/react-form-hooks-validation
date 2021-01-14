@@ -5,7 +5,8 @@ import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import * as errorMsgs from './errorMsgs';
 
 const mcc = 'background:black;color:orange;',
-    fieldsToShow: any = [
+
+    fieldsToShow: any[] = [
         { InternalName: 'Title' },
         { InternalName: 'Status' },
         { InternalName: 'DueDate' },
@@ -58,40 +59,39 @@ const mcc = 'background:black;color:orange;',
 
             onSubmit = data => {
                 console.log('%c data', mcc, data);
-            };
+            },
 
+            elFormFields = fieldsToShow.map(fts => {
 
-        const elFormFields = fieldsToShow.map(fts => {
+                const fieldDef = fields.find((f: any) => f.InternalName == fts.InternalName),
+                    fieldType = fts.TypeAsString || fieldDef.TypeAsString;
 
-            const fieldDef = fields.find((f: any) => f.InternalName == fts.InternalName),
-                fieldType = fts.TypeAsString || fieldDef.TypeAsString;
+                return (
+                    <>
+                        <FormField
+                            field={fieldDef}
+                            fieldOverrides={fts}
+                            label={fts.Title || fieldDef.Title}
+                            val={item[fts.InternalName]}
+                            mode={mode}
+                            horizontal={true}
+                            // handler={handlerFields}
+                            context={context}
+                        />
+                        {errors[fts.InternalName] &&
+                            <div style={{ color: 'red' }}>
+                                {
+                                    errors[fts.InternalName].message // specific error message in component
+                                    || errorMsgs[errors[fts.InternalName].type][fieldType] // error message from errorMsgs.tsx
+                                    || errorMsgs[errors[fts.InternalName].type] // error message from errorMsgs.tsx
+                                    || errorMsgs.unknown // unknown error message from errorMsgs.tsx
+                                }
+                            </div>
+                        }
+                    </>
+                );
 
-            return (
-                <>
-                    <FormField
-                        field={fieldDef}
-                        fieldOverrides={fts}
-                        label={fts.Title || fieldDef.Title}
-                        val={item[fts.InternalName]}
-                        mode={mode}
-                        horizontal={true}
-                        // handler={handlerFields}
-                        context={context}
-                    />
-                    {errors[fts.InternalName] &&
-                        <div style={{ color: 'red' }}>
-                            {
-                                errors[fts.InternalName].message // specific error message in component
-                                || errorMsgs[errors[fts.InternalName].type][fieldType] // error message from errorMsgs.tsx
-                                || errorMsgs[errors[fts.InternalName].type] // error message from errorMsgs.tsx
-                                || errorMsgs.unknown // unknown error message from errorMsgs.tsx
-                            }
-                        </div>
-                    }
-                </>
-            );
-
-        });
+            });
 
         return (
             <FormProvider {...methods} >

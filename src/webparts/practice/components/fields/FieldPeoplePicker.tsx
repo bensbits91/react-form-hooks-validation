@@ -17,8 +17,9 @@ const FieldPeoplePicker = ({
     context
 }) => {
 
-    const methods = useFormContext();
-    const { control } = methods;
+    const methods = useFormContext(),
+
+        { control } = methods;
 
     return (
         <Controller
