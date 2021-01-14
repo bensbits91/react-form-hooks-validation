@@ -2,26 +2,20 @@ import * as React from 'react';
 import FieldDatePicker from './fields/FieldDatePicker';
 import FieldDropdown from './fields/FieldDropdown';
 import FieldRadioButtons from './fields/FieldRadioButtons';
-// import FieldComboBox from './fields/FieldComboBox';
 import FieldPeoplePicker from './fields/FieldPeoplePicker';
 import FieldText from './fields/FieldText';
-// import { debounce } from '@microsoft/sp-lodash-subset';
-
-const mcc = 'background:magenta;color:yellow;';
 
 const FormFieldEdit = ({
     val,
     field,
+    fieldOverrides,
     mode,
     context
 }) => {
 
-    // const handlerTextField = debounce((f, v) => {
-    //     handlerMain(f, v);
-    // }, 500);
+    const fieldType = fieldOverrides.TypeAsString || field.TypeAsString;
 
-
-    switch (field.TypeAsString) {
+    switch (fieldType) {
 
         case 'Choice':
             if (field.SchemaXml.indexOf('RadioButtons') > -1) {
@@ -32,7 +26,6 @@ const FormFieldEdit = ({
                             value={val}
                             mode={mode}
                         />
-                        {/* {helpText} */}
                     </div>
                 );
             }
@@ -43,7 +36,6 @@ const FormFieldEdit = ({
                         value={val}
                         mode={mode}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
@@ -51,14 +43,17 @@ const FormFieldEdit = ({
         case 'Currency':
         case 'Number':
         case 'Note':
+        case 'Email':
+        case 'Phone':
+        case 'Zip':
             return (
                 <div /* className={styles.fieldWrap} */>
                     <FieldText
                         field={field}
+                        fieldOverrides={fieldOverrides}
                         value={val}
                         mode={mode}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
@@ -69,7 +64,6 @@ const FormFieldEdit = ({
                         field={field}
                         dateValue={val}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
@@ -81,10 +75,9 @@ const FormFieldEdit = ({
                         value={val}
                         // labelOverride={labelOverride}
                         // handler={handlerMain}
+                        // disabled={field.InternalName == 'ReviewedBy'}
                         context={context}
-                    // disabled={field.InternalName == 'ReviewedBy'}
                     />
-                    {/* {helpText} */}
                 </div>
             );
 
